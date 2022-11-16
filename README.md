@@ -20,6 +20,9 @@ Clone deze git-repository in de HTDOCS folder je lokale webserver (meestal is di
 Open in je terminal de zojuist aangemaakte reposity-folder genaamd: "s3-iveused-pwa" (dit doe je door: "cd s3-iveused-pwa" te typen in de terminal)
 
 ### Stap 3
+Verander in het bestand: "variables.php", de variabel die heet: "$baseUrl" met het pad naar je daadwerkelijke website. Dit zal iets zijn in de richting van: "http://localhost/s3-iveused-pwa". Deze is voor iedereen anders en is gebasseerd op waar je het project specifiek gecloned hebt.
+
+### Stap 4
 Voer in de terminal het commando: "npm i" in
 
 De installatie is nu voltooid :)
