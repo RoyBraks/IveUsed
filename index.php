@@ -9,14 +9,25 @@
     $pageUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     
     // Store the page-specifier from the URL
-    $pageSpecifier = str_replace($baseUrl, "", $pageUrl);
+    $page = $pageSpecifier = str_replace($baseUrl, "", $pageUrl);
 
-    die(var_dump($pageSpecifier));
+    // All odd URL occasians specification
+    switch ($pageSpecifier) {
+        case "":
+            $page = "home";
+        break;
+
+        case "map":
+            $page = "incident-map";
+        break;
+    }
+
+    // die(var_dump($pageSpecifier));
     
     // Let twig read the templates folder
     $loader = new \Twig\Loader\FilesystemLoader('templates');
     // Create a new Twig envirorment (workspace)
     $twig = new \Twig\Environment($loader);
     // Render the base twig-file
-    echo $twig->render('/layouts/base.twig', ['page' => $pageSpecifier]);
+    echo $twig->render('/layouts/base.twig', ['page' => $page]);
 ?>
