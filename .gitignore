@@ -1,4 +1,5 @@
-vendor
 node_modules
-
 variables.php
+
+dist/js/*
+dis/css/*

@@ -9,7 +9,7 @@
         <script src="./dist/js/app.js" type="module" defer></script>
 
         <!-- Document title -->
-        <title>I'veUsed {% if page != "" %}- {{ page }}{% endif %}</title>
+        <title>I'veUsed {% if page != "" %}- {{ page|capitalize|replace({"-": " "}) }}{% endif %}</title>
     </head>
     <body>
         <div id="app">

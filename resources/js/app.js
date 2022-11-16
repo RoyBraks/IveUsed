@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 
 // Import components
-import navigation from "./components/navigation";
+import navigation from "../../templates/components/navigation";
 
 
 
