@@ -1,0 +1,33 @@
+*, *::before, *::after
+    margin: 0
+    padding: 0
+    box-sizing: border-box
+
+html
+    font-size: 62.5%
+
+body
+    display: flex
+    height: 100vh
+    font-size: 1.6rem
+    align-items: center
+    justify-content: center
+    background-color: $color-black
+    font-family: "Montserrat", sans-serif
+
+// Styling to get centered div (phone simulator)
+#app
+    width: 37.5rem
+    max-height: 81.2rem
+    position: relative
+    height: calc(100vh - 10rem)
+    
+    &::before
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        content: ""
+        z-index: -2
+        position: absolute
+        background-color: $color-white
