@@ -5,8 +5,8 @@
                 class="navigation__icon" 
                 v-for="(page, index) in navPages" :key="index"
                 :href="'./' + index"
-                :class="{ 'navigation__icon--active': page.active }"
                 v-html="page.navIcon"
+                :class="{ 'navigation__icon--active': page.active }"
             ></a>
         </div>
     </nav>
