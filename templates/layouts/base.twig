@@ -25,8 +25,6 @@
     </head>
     <body>
         <div id="app">
-            <h2 style="padding: 2rem;">{{ page|capitalize|replace({"-": " "}) }}</h2>
-
             {# Include specfic requested page #}
             {% include "pages/" ~ page ~ ".twig" %}
 

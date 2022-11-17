@@ -9,5 +9,10 @@ createApp({
     delimiters: ["[[", "]]"],
     components: {
         "Navigation": navigation
+    },
+    methods: {
+        addSubstance (event) {
+        
+        }
     }
 }).mount('#app')

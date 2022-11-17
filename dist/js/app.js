@@ -17640,6 +17640,9 @@ __webpack_require__.r(__webpack_exports__);
   delimiters: ["[[", "]]"],
   components: {
     "Navigation": _templates_components_navigation__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    addSubstance: function addSubstance(event) {}
   }
 }).mount('#app');
 
