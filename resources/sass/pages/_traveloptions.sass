@@ -84,23 +84,69 @@
         margin-top: 1.5rem
         display: flex
         gap: 1.5rem
-        flex-wrap: wrap
+        overflow: scroll
+        &::-webkit-scrollbar 
+            display: none 
+            
         
         &__button
             display: flex
             align-content: center
             background-color: $color-primary
             color: $color-white
-            font-size: 1rem
             gap: 1rem
             border-radius: 0.5rem
 
             justify-content: space-between
             align-items: center
-            padding: 0.8rem 1.5rem
+            padding: 1rem 2rem
 
+.options
+    margin-top: 2rem
+    font-size: 1.3rem
+    font-weight: 600
 
+    &__field
+        margin-top: 2rem
+        background-color: $color-white-secondary
+        padding: 1.5rem 1.5rem 1.5em 1.5rem
+        border-radius: $border-radius
+        position: relative
+        font-size: 1.3rem
+        
 
+        &__name
+            font-weight: 500
+            display: flex
+            align-items: center
+            gap: 2rem
+            margin-bottom: 1.3rem
+        &__info   
+            &__TOA
+                display: flex
+                font-weight: 400
+                color: $color-gray
+                margin-bottom: 0.8rem 
+                position: relative
+                &__time
+                    color: $color-black
+                    position: absolute
+                    left: 50%
+            &__place
+                display: flex
+                font-weight: 400
+                color: $color-gray
+                margin-bottom: 0.8rem
+                position: relative
+                &__place
+                    color: $color-black
+                    position: absolute
+                    left: 50%
+            &__info
+                font-weight: 400
+                color: $color-primary
+                display: flex
+                justify-content: center
             
 
 
