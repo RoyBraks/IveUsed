@@ -17585,16 +17585,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! leaflet */ "./node_modules/leaflet/dist/leaflet-src.js");
 /* harmony import */ var leaflet__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(leaflet__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var leaflet_dist_leaflet_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! leaflet/dist/leaflet.css */ "./node_modules/leaflet/dist/leaflet.css");
+// Import the leaflet library with accessory CSS
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
+    // Get the map element
     var mapElement = this.$refs.map;
+
+    // Let the map take up all available height
     mapElement.style.height = document.getElementsByClassName("map__wrapper")[0].offsetHeight + "px";
-    var leafletMap = leaflet__WEBPACK_IMPORTED_MODULE_0___default().map(mapElement).setView([51.505, -0.09], 13);
-    leaflet__WEBPACK_IMPORTED_MODULE_0___default().tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(leafletMap);
+
+    // Initialze the Leaflet map with the latitude and longitude from Eindhoven
+    var leafletMap = leaflet__WEBPACK_IMPORTED_MODULE_0___default().map(mapElement).setView([51.44083, 5.47778], 11);
+
+    // Add tile-layer to leaflet map (load location images)
+    leaflet__WEBPACK_IMPORTED_MODULE_0___default().tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(leafletMap);
   }
 });
 
