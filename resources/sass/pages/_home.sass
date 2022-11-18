@@ -1,7 +1,23 @@
 .home
     display: flex
+    position: relative
     align-items: center
     flex-direction: column
+
+    &::before, &::after
+        left: 3rem
+        content: ""
+        z-index: -1
+        top: 10.5rem
+        height: 9rem
+        position: absolute
+        width: calc(50% - 3rem)
+        background-image: linear-gradient(to left, $color-primary, $color-white)
+
+    &::after
+        right: 3rem
+        left: initial
+        background-image: linear-gradient(to right, $color-primary, $color-white)
 
     &__add-btn
         margin-top: 3rem
