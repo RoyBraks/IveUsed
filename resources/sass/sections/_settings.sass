@@ -3,7 +3,7 @@
    
     &__accountlink
 
-        background-color: #f00000
+        background-color: $color-white-secondary
         padding: 1.4em 0em 1.1em 0em
         
         font-size: 0.8em
@@ -35,12 +35,35 @@
 
     &__settingsall
 
-        background-color: #f00000
+        background-color: $color-white-secondary
         margin: 1em 3% 0% 3%
         padding: 1.4em 2em 1.1em 2em
         border-radius: 1em
 
         line-height: 2em
+
+        &__optionmenu
+            height: 3em
+            background-color: $color-white-third
+            padding:0em 1em
+            
+            border-radius: 1em
+
+            display: flex
+
+            margin-bottom: 7%
+
+            &__text
+                position: relative
+                top: 0.3rem
+
+            &__arrow
+                position: relative
+                margin-left: 55%
+                width: 100%
+                top: 1em
+
+
 
         &__smalltext
 
