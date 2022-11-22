@@ -1,10 +1,96 @@
 .map
     &__wrapper
         padding: 0
+        position: relative
 
-// Disable leaflet control styling
-.leaflet-control-attribution
-    display: none
+    &__overlay
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        height: 100%
+        z-index: 999
+        opacity: .75
+        display: none
+        position: absolute
+        background-color: $color-black
 
-.leaflet-tile 
-    filter: grayscale(0.25) !important
+        &--active
+            display: block
+
+    &__popup
+        top: 50%
+        left: 50%
+        z-index: 1000
+        overflow: auto
+        padding: 2.5rem
+        position: absolute
+        width: calc(100% - 7rem)
+        border-radius: $border-radius
+        max-height: calc(100% - 14rem)
+        background-color: $color-white
+        transform: translate(-50%, -50%)
+
+        &::-webkit-scrollbar
+            display: none
+
+        &--inner
+            position: relative
+
+    &__cross
+        top: 0
+        right: 0
+        position: absolute
+
+    &__title
+        margin-bottom: 3rem
+
+    &__instruction
+        display: flex
+        align-items: center
+
+        p
+            flex: 1
+            line-height: 1.6
+            color: $color-grey
+            margin-left: 2.5rem
+
+        svg
+            width: 2.4rem
+            display: block
+
+        &s
+            display: flex
+            margin-bottom: 2.5rem
+
+        &:first-child svg
+            width: 2.8rem
+
+        &:not(:last-child)
+            margin-bottom: 2rem
+
+    &__label
+        font-size: 1.4rem
+        color: $color-white
+        padding: .8rem 1.5rem
+        background-color: $color-primary
+        border-radius: calc($border-radius / 2)
+
+        &:not(:last-child)
+            margin-right: 1rem
+
+        &s
+            display: flex
+
+    &__image
+        width: 100%
+        display: block
+        margin-top: 1.5rem
+        border-radius: calc($border-radius / 2)
+
+    &__paragraph
+        font-weight: 400
+        font-size: 1.5rem
+        line-height: 1.55
+        color: $color-grey
+        margin-top: 1.75rem
