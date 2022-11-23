@@ -56,8 +56,8 @@
         data () {
             return {
                 // accidents: JSON.parse(this.$props.accidents),
-                manual: false,
-                popup: true,
+                manual: true,
+                popup: false,
                 activePopup: this.$props.accidents[0]
             }
         },
@@ -88,13 +88,13 @@
                 // Save markerlocation for later use
                 const markerLocation = [accident.latitude, accident.longitude];
 
-                // Change popup information to custom popup
-                this.activePopup = accident
-
                 // Add custom marker to map
                 leaflet.marker(markerLocation, {icon: markerIcon}).addTo(leafletMap).on('click', (e) => {
                     this.popup = true;
                     leafletMap.setView(e.target.getLatLng(), 11);
+
+                    // Change popup information to custom popup
+                    this.activePopup = accident;
 
                     // Find the pixel location on the map where the popup anchor is
                     var px = leafletMap.project(markerLocation);
