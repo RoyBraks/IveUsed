@@ -44,6 +44,31 @@
     // Set page to active for navigation
     $pages[$page]["active"] = true;
 
+    $accidents = array(
+        array(
+            "latitude" => 51.44083,
+            "longitude" => 5.47778,
+            "title" => "Eindhoven centrum",
+            "labels" => array(
+                "Alcoholgebruik",
+                "Ongeval"
+            ),
+            "image" => "dist/img/accidents/accident-1.jpg",
+            "paragraph" => "Het ongeval gebeurde rond 3 uur afgelopen nacht. Op de E17 in Haasdonk bij Beveren reed een spookrijder frontaal in op een taxi met vijf mensen in. Door de klap zaten de taxichauffeur en zijn vier passagiers gekneld in het wrak. De brandweer moest hen bevrijden. Ze raakten allemaal gewond bij het ongeval. Vooral de passagier die vooraan in de taxi zat is er erg aan toe. Hij is in kritieke toestand naar het ziekenhuis gebracht. De autobestuurder die al spookrijdend het ongeval veroorzaakte, is lichtgewond naar het ziekenhuis overgebracht. Het gaat om een jongeman van 24. Hij had te veel gedronken en had ook drugs gebruikt. Het parket onderzoekt het ongeval maar er is geen verkeersdeskundige aangesteld omdat het verloop van de gebeurtenissen duidelijk was. Het rijbewijs van de benevelde bestuurder is ingetrokken en de man zal zich moeten verantwoorden voor de politierechter."
+        ),
+        array(
+            "latitude" => 51.50083,
+            "longitude" => 5.48778,
+            "title" => "Son en Breugel",
+            "labels" => array(
+                "Alcoholgebruik",
+                "Ongeval"
+            ),
+            "image" => "dist/img/accidents/accident-1.jpg",
+            "paragraph" => "Het ongeval gebeurde rond 3 uur afgelopen nacht. Op de E17 in Haasdonk bij Beveren reed een spookrijder frontaal in op een taxi met vijf mensen in. Door de klap zaten de taxichauffeur en zijn vier passagiers gekneld in het wrak. De brandweer moest hen bevrijden. Ze raakten allemaal gewond bij het ongeval. Vooral de passagier die vooraan in de taxi zat is er erg aan toe. Hij is in kritieke toestand naar het ziekenhuis gebracht. De autobestuurder die al spookrijdend het ongeval veroorzaakte, is lichtgewond naar het ziekenhuis overgebracht. Het gaat om een jongeman van 24. Hij had te veel gedronken en had ook drugs gebruikt. Het parket onderzoekt het ongeval maar er is geen verkeersdeskundige aangesteld omdat het verloop van de gebeurtenissen duidelijk was. Het rijbewijs van de benevelde bestuurder is ingetrokken en de man zal zich moeten verantwoorden voor de politierechter."
+        )
+    );
+
     // die(var_dump($pageSpecifier));
     
     // Let twig read the templates folder
@@ -51,5 +76,5 @@
     // Create a new Twig envirorment (workspace)
     $twig = new \Twig\Environment($loader);
     // Render the base twig-file
-    echo $twig->render('/layouts/base.twig', ['page' => $page, 'pages' => $pages]);
+    echo $twig->render('/layouts/base.twig', ['page' => $page, 'pages' => $pages, 'accidents' => json_encode($accidents)]);
 ?>
