@@ -1,5 +1,6 @@
 <template>
-<a @click.prevent="()=>{active = !active}" class="dropdown-container" :class={active:active} v-click-outside="ClickOutside">
+<div @click.prevent="()=>{active = !active}" class="dropdownBackground" :class={active:active}></div>
+<a @click.prevent="()=>{active = !active}" class="dropdown-container" :class={active:active} >
     <a class="optionbutton">
         <p class="optionbutton__text">{{value}}</p>
         <svg class="optionbutton__arrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
@@ -19,7 +20,5 @@
         data(){
             return {active: false, value:"Nederlands"}
         },
-
     }
-    
 </script>
