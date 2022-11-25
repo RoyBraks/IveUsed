@@ -1,10 +1,11 @@
 import { createApp } from 'vue'
 
 // Import components
+import popup from "../../templates/components/popup";
 import navigation from "../../templates/components/navigation";
 import incidentMap from "../../templates/components/incident-map";
 import switchknob from "../../templates/components/switchknob";
-import popup from "../../templates/components/popup";
+import dropdownmenu from "../../templates/components/dropdownmenu";
 
 createApp({
     data () {
@@ -17,7 +18,8 @@ createApp({
         "popup": popup,
         "navigation": navigation,
         "incidentmap": incidentMap,
-        "switchknob": switchknob
+        "switchknob": switchknob,
+        "dropdownmenu": dropdownmenu,
     },
     methods: {
         addSubstance (event) {
