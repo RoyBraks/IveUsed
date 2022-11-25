@@ -32,7 +32,7 @@ createApp({
     watch: {
         'darkMode' (newValue) {
             localStorage.setItem('darkMode', newValue);
-            newValue ? document.body.classList.add("dark-mode") : document.body.classList.remove("dark-mode")
+            (newValue === 'true' || newValue === true) ? document.body.classList.add("dark-mode") : document.body.classList.remove("dark-mode")
         }
     }
 }).mount('#app') 
