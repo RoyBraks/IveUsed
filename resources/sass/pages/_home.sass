@@ -32,3 +32,22 @@
 
             &:last-child
                 margin-left: 1.5rem
+
+    &__overlay
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        height: 100%
+        z-index: 999
+        opacity: .75
+        position: absolute
+        background-color: $color-black
+
+        &--active
+            display: block
+
+    &__popup
+        &-box
+        
+        &__inner

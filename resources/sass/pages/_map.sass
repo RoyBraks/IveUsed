@@ -3,40 +3,6 @@
         padding: 0
         position: relative
 
-    &__overlay
-        top: 0
-        left: 0
-        right: 0
-        bottom: 0
-        height: 100%
-        z-index: 999
-        opacity: .75
-        display: none
-        position: absolute
-        background-color: $color-black
-
-        &--active
-            display: block
-
-    &__popup
-        top: 50%
-        left: 50%
-        z-index: 1000
-        overflow: auto
-        padding: 2.5rem
-        position: absolute
-        width: calc(100% - 7rem)
-        border-radius: $border-radius
-        max-height: calc(100% - 14rem)
-        background-color: $color-white
-        transform: translate(-50%, -50%)
-
-        &::-webkit-scrollbar
-            display: none
-
-        &--inner
-            position: relative
-
     &__cross
         top: 0
         right: 0

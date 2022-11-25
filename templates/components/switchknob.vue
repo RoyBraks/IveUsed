@@ -13,7 +13,14 @@
 <script>
     export default{
         data(){
-            return {active: false}
+            return {
+                active: false
+            }
+        },
+        watch: {
+            'active' (newValue) {
+                this.$emit('darkModeToggle', this.active)
+            }
         }
     }
 
