@@ -22,15 +22,16 @@ createApp({
         "dropdownmenu": dropdownmenu,
     },
     methods: {
-        addSubstance (event) {
-            this.darkMode = !this.darkMode
+        darkModeToggle (event) {
+            this.darkMode = event
         }
     },
     mounted () {
-        if (this.darkMode == true) document.body.classList.add("dark-mode");
+        this.darkMode = localStorage.getItem('darkMode');
     },
     watch: {
         'darkMode' (newValue) {
+            localStorage.setItem('darkMode', newValue);
             newValue ? document.body.classList.add("dark-mode") : document.body.classList.remove("dark-mode")
         }
     }
