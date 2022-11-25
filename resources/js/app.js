@@ -6,29 +6,28 @@ import navigation from "../../templates/components/navigation";
 import incidentMap from "../../templates/components/incident-map";
 import switchknob from "../../templates/components/switchknob";
 import dropdownmenu from "../../templates/components/dropdownmenu";
-import { vue } from 'laravel-mix';
 
-const clickOutside = {
-    beforeMount: (el, binding) => {
-        el.clickOutsideEvent = event => {
-            if (!(el == event.target || el.contains(event.target))){
-                binding.value()
-            }
-        },
-        document.addEventListener("click", el.clickOutsideEvent)
-    },
+// const clickOutside = {
+//     beforeMount: (el, binding) => {
+//         el.clickOutsideEvent = event => {
+//             if (!(el == event.target || el.contains(event.target))){
+//                 binding.value()
+//             }
+//         },
+//         document.addEventListener("click", el.clickOutsideEvent)
+//     },
 
-    unmounted: el =>
-    {
-        document.removeEventListener("click", el.clickOutsideEvent)
-    }
+//     unmounted: el =>
+//     {
+//         document.removeEventListener("click", el.clickOutsideEvent)
+//     }
     
-}
+// }
 
 createApp({
-    directives: {
-        "click-outside": clickOutsideEvent
-    },
+    // directives: {
+    //     "click-outside": clickOutsideEvent
+    // },
     data () {
         return {
             darkMode: false
