@@ -38,5 +38,5 @@ createApp({
     methods: {
         addSubstance (event) {
         }
-    },
-}).mount('#app')
+    }
+}).mount('#app') 
