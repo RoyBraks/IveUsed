@@ -3,12 +3,141 @@
         <div class="indicator__inner">
             <span class="indicator__label">Je kunt weer rijden in</span>
             <div class="indicator__time">
-                <span class="indicator__hours">1 uur &amp;</span>
-                <span class="indicator__minutes">24 minuten</span>
+                <span class="indicator__hours">{{ hoursBeforeSober }} uur &amp;</span>
+                <span class="indicator__minutes">{{ minutesBeforeSober }} minuten</span>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import axios from "axios"
+
+export default {
+    data () {
+        return {
+            hoursBeforeSober: 0,
+            minutesBeforeSober: 0
+        }
+    },
+    methods: {
+        calculateSubstanceEndingTimes (substances) {
+            let usedSubstances = [];
+
+            // For every taken substance
+            substances.forEach((substance, index) => {
+                // Bereken hoeveel minuten voordat alcohol is afgebroken
+                // 1 ml alc duurt 7.2 minuten om afbebroken te worden door het menselijk lichaam
+                const mlOfAlcoholIntake = (substance.amount / 100) * substance.alc;
+                const minutesBeforeSober = mlOfAlcoholIntake * 7.2;
+
+                // Push calculated data to array
+                usedSubstances.push({
+                    date: substance.date,
+                    time: substance.time,
+                    minutesBeforeSober: Math.round(minutesBeforeSober)
+                });
+            });
+
+            this.calculateSoberTime(usedSubstances);
+        },
+        calculateSoberTime (substances) {
+            let extraTimeBeforeSober = 0;
+
+            for (let i = 1; i < substances.length; i++) {
+                // Get the hours and minutes of current intake
+                const currIntakeHours = parseInt(substances[i].time.split(":")[0]);
+                const currIntakeMinutes = parseInt(substances[i].time.split(":")[1]);
+                
+                // Get the hours and minutes of previous taken substance
+                const prevIntakeHours = parseInt(substances[i - 1].time.split(":")[0]);
+                const prevIntakeMinutes = parseInt(substances[i - 1].time.split(":")[1]);
+
+                // Calculate the hours and minutes when fully sober of previous taken substance
+                let prevCleanHours = prevIntakeHours;
+                let prevCleanMinutes = Math.round(prevIntakeMinutes + substances[i - 1].minutesBeforeSober);
+                let numberOfHours = Math.floor(prevCleanMinutes / 60);
+                for (let i = 0; i < numberOfHours; i++) {
+                    prevCleanMinutes -= 60;
+                    prevCleanHours++;
+                }
+
+                // 22:60 is not a valid time so we equal it to 23:00
+                if (prevCleanMinutes === 60) { cleanMinutes -= 60; prevCleanHours++; }
+
+                // Calculate the actual time before we are sober again
+                if (substances[i].date === substances[i - 1].date) {
+                    // If the previous taken substance hasn't worked out the remaining time will be calculated and added in the end
+                    if (prevCleanHours == currIntakeHours) {
+                        if (currIntakeMinutes < prevCleanMinutes) extraTimeBeforeSober += (prevCleanMinutes - currIntakeMinutes);
+                    } else if (prevCleanHours > currIntakeHours) {
+                        for (let i = 0; i < prevCleanHours - currIntakeHours - 1; i++) extraTimeBeforeSober += 60;
+
+                        if (prevCleanMinutes < currIntakeMinutes) extraTimeBeforeSober += currIntakeMinutes - prevCleanMinutes;
+                        else extraTimeBeforeSober += prevCleanMinutes;
+                    }
+                }
+            }
+
+            // Get the hours and minutes of latest taken substance
+            const intakeHours = parseInt(substances[substances.length - 1].time.split(":")[0]);
+            const intakeMinutes = parseInt(substances[substances.length - 1].time.split(":")[1]);
+
+            // Calculate the hours and minutes when fully sober of the last taken substance
+            let cleanHours = intakeHours;
+            let cleanMinutes = Math.round(intakeMinutes + substances[substances.length - 1].minutesBeforeSober + extraTimeBeforeSober);
+            let numberOfHours = Math.floor(cleanMinutes / 60);
+            for (let i = 0; i < numberOfHours; i++) {
+                cleanMinutes = cleanMinutes - 60;
+                cleanHours++;
+            }
+
+            // 22:60 is equal to 23:00
+            if (cleanMinutes == 60) { cleanMinutes -= 60; cleanHours++; }
+
+            // Get the current date
+            var currentdate = new Date();
+            const currentHours = currentdate.getHours();
+            const currentMinutes = currentdate.getMinutes();
+            const currentDateString = String(currentdate.getDate()).padStart(2, '0') + "-" + String((currentdate.getMonth() + 1)).padStart(2, '0') + "-" + currentdate.getFullYear();
+
+            let hoursBoforeSober = 0;
+            let minutesBeforeSober = 0;
+            
+            // Calculate the actual time before we are sober again
+            if (currentDateString === substances[substances.length - 1].date) {
+                // Calculate the amount of hours and minute before fully sober
+                if (cleanHours == currentHours) {
+                    if (currentMinutes < cleanMinutes) minutesBeforeSober = cleanMinutes - currentMinutes;
+                } else if (cleanHours > currentHours) {
+                    for (let i = 0; i < cleanHours - currentHours - 1; i++) minutesBeforeSober += 60;
+
+                    if (cleanMinutes < currentMinutes) minutesBeforeSober += currentMinutes - cleanMinutes;
+                    else minutesBeforeSober += cleanMinutes;
+                }
+
+                numberOfHours = Math.floor(minutesBeforeSober / 60);
+                for (let i = 0; i < numberOfHours; i++) {
+                    minutesBeforeSober = minutesBeforeSober - 60;
+                    hoursBoforeSober++;
+                }
+            }
+
+            // Set the calculated time as Vue variables in the templates
+            this.hoursBeforeSober = hoursBoforeSober;
+            this.minutesBeforeSober = minutesBeforeSober;
+        }
+    },
+    created () {
+        // Get used substances from database
+        axios.post("http://127.0.0.1:3000/substances/", {
+            username: "ruben"
+        }).then((res) => this.calculateSubstanceEndingTimes(res.data)).catch((error) => {
+            console.error(error);
+        });
+    }
+}
+</script>
 
 <style lang="sass" scoped>
 .indicator
