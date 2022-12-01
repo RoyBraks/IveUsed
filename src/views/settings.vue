@@ -18,32 +18,33 @@
             <div class="settings__settingsall__smalltext">
                 <div>
                     <p>Animaties weergeven</p>
-                    <!-- <switchknob></switchknob> -->
+                    <switchknob />
 
                     <p>Dark modus activeren</p>
-                    <!-- <switchknob ref="darkModeSwitch" @dark-mode-toggle="(value) => darkModeToggle(value)"></switchknob> -->
+                    <switchknob ref="darkModeSwitch" @dark-mode-toggle="(value) => darkModeToggle(value)" />
 
                     <p>Push meldingen ontvangen</p>
-                    <!-- <switchknob></switchknob> -->
+                    <switchknob />
 
                     <p>Taal</p>
-                    <!-- <dropdownmenu></dropdownmenu> -->
+                    <dropdownmenu />
 
                     <p>Toevoeg optie</p>
-                    <!-- <dropdownmenu></dropdownmenu> -->
+                    <dropdownmenu />
                 </div>
             </div>
         </div>
     </main>
   </template>
   
-  <script>
-      export default {
-      
-      }
+  <script setup>
+
+  import switchknob from "@/components/switchknob.vue"
+  import dropdownmenu from "@/components/dropdownmenu.vue"
+
   </script>
   
-  <style lang="sass" scoped>
+<style lang="sass" scoped>
 .settings
     &__accountlink
         background-color: $color-white-secondary
