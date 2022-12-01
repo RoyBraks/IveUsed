@@ -1,5 +1,5 @@
 <template>
-   <div class="indicator">
+   <div class="indicator" v-if="hoursBeforeSober != 0 || minutesBeforeSober != 0">
         <div class="indicator__inner">
             <span class="indicator__label">Je kunt weer rijden in</span>
             <div class="indicator__time">
@@ -26,10 +26,23 @@ export default {
 
             // For every taken substance
             substances.forEach((substance, index) => {
-                // Bereken hoeveel minuten voordat alcohol is afgebroken
-                // 1 ml alc duurt 7.2 minuten om afbebroken te worden door het menselijk lichaam
-                const mlOfAlcoholIntake = (substance.amount / 100) * substance.alc;
-                const minutesBeforeSober = mlOfAlcoholIntake * 7.2;
+                let minutesBeforeSober = 0;
+                const type = substance.type;
+
+                if (type === "beer" || type === "wine" || type === "shot") {
+                    // Bereken hoeveel minuten voordat alcohol is afgebroken
+                    // 1 ml alc duurt 7.2 minuten om afbebroken te worden door het menselijk lichaam
+                    const mlOfAlcoholIntake = (substance.amount / 100) * substance.alc;
+                    minutesBeforeSober = mlOfAlcoholIntake * 7.2;
+                } else if (type === "weed") {
+                    minutesBeforeSober = 8 * 60;
+                } else if (type === "shrooms") {
+                    minutesBeforeSober = 6 * 60;
+                } else if (type === "xtc") {
+                    minutesBeforeSober = substance.amount * 14.0350877193;
+                } else if (type === "cocaine") {
+                    minutesBeforeSober = 4 * 60;    
+                }
 
                 // Push calculated data to array
                 usedSubstances.push({
@@ -71,7 +84,7 @@ export default {
                     if (prevCleanHours == currIntakeHours) {
                         if (currIntakeMinutes < prevCleanMinutes) extraTimeBeforeSober += (prevCleanMinutes - currIntakeMinutes);
                     } else if (prevCleanHours > currIntakeHours) {
-                        for (let i = 0; i < prevCleanHours - currIntakeHours - 1; i++) extraTimeBeforeSober += 60;
+                        for (let i = 0; i < prevCleanHours - currIntakeHours; i++) extraTimeBeforeSober += 60;
 
                         if (prevCleanMinutes < currIntakeMinutes) extraTimeBeforeSober += currIntakeMinutes - prevCleanMinutes;
                         else extraTimeBeforeSober += prevCleanMinutes;
@@ -87,7 +100,7 @@ export default {
             let cleanHours = intakeHours;
             let cleanMinutes = Math.round(intakeMinutes + substances[substances.length - 1].minutesBeforeSober + extraTimeBeforeSober);
             let numberOfHours = Math.floor(cleanMinutes / 60);
-            for (let i = 0; i < numberOfHours; i++) {
+            for (let i = 0; i < numberOfHours - 1; i++) {
                 cleanMinutes = cleanMinutes - 60;
                 cleanHours++;
             }
@@ -110,9 +123,9 @@ export default {
                 if (cleanHours == currentHours) {
                     if (currentMinutes < cleanMinutes) minutesBeforeSober = cleanMinutes - currentMinutes;
                 } else if (cleanHours > currentHours) {
-                    for (let i = 0; i < cleanHours - currentHours - 1; i++) minutesBeforeSober += 60;
+                    for (let i = 0; i < cleanHours - currentHours; i++) minutesBeforeSober += 60;
 
-                    if (cleanMinutes < currentMinutes) minutesBeforeSober += currentMinutes - cleanMinutes;
+                    if (currentMinutes < cleanMinutes) minutesBeforeSober += cleanMinutes - currentMinutes;
                     else minutesBeforeSober += cleanMinutes;
                 }
 
@@ -133,7 +146,8 @@ export default {
         axios.post("http://127.0.0.1:3000/substances/", {
             username: "ruben"
         }).then((res) => this.calculateSubstanceEndingTimes(res.data)).catch((error) => {
-            console.error(error);
+            document.body.innerHTML = "Please start the webserver";
+            document.body.style.color = "#fff";
         });
     }
 }

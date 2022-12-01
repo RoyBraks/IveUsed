@@ -20,7 +20,7 @@
   <main class="map__wrapper">
     <Map />
 
-    <Popup :active="manual">
+    <Popup :active="manual" @close="manual = false;">
       <h1 class="map__title h3">Gebruikershandleiding</h1>
 
       <div class="map__instructions">
@@ -43,7 +43,7 @@
       <a class="btn" @click.prevent="manual = false;">Ik begrijp het</a>
     </Popup>
 
-    <Popup :active="popup">
+    <Popup :active="popup" @close="popup = false;">
       <div class="popup--inner">
           <h2 class="h3"></h2> <!-- {{ activePopup.title }} -->
 
