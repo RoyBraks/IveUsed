@@ -21,7 +21,7 @@
                     <switchknob />
 
                     <p>Dark modus activeren</p>
-                    <switchknob ref="darkModeSwitch" @dark-mode-toggle="(value) => darkModeToggle(value)" />
+                    <switchknob ref="darkModeSwitch" :active="$parent.$parent.darkMode" @changeValue="(value) => $emit('dark-mode', value)" />
 
                     <p>Push meldingen ontvangen</p>
                     <switchknob />
@@ -35,14 +35,19 @@
             </div>
         </div>
     </main>
-  </template>
+</template>
   
-  <script setup>
+<script>
+import switchknob from "@/components/switchknob.vue"
+import dropdownmenu from "@/components/dropdownmenu.vue"
 
-  import switchknob from "@/components/switchknob.vue"
-  import dropdownmenu from "@/components/dropdownmenu.vue"
-
-  </script>
+export default {
+    components: {
+        switchknob,
+        dropdownmenu
+    }
+}
+</script>
   
 <style lang="sass" scoped>
 .settings

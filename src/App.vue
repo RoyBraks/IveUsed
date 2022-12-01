@@ -2,14 +2,33 @@
     import Navigation from "@/components/navigation.vue"
 
     export default {
+        data () {
+            return {
+                darkMode: false
+            }
+        },
         components: {
             Navigation
+        },
+        mounted () {
+            this.darkMode = localStorage.getItem('darkMode');
+        },
+        methods: {
+            darkModeToggle (event) {
+                this.darkMode = event;
+            }
+        },
+        watch: {
+            'darkMode' (newValue) {
+                localStorage.setItem('darkMode', newValue);
+                (newValue === 'true' || newValue === true) ? document.body.classList.add("dark-mode") : document.body.classList.remove("dark-mode")
+            }
         }
     }
 </script>
 
 <template>
-    <router-view></router-view>
+    <router-view @darkMode="darkModeToggle"></router-view>
     <Navigation />
 </template>
 

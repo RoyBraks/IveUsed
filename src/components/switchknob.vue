@@ -12,14 +12,10 @@
 
 <script>
     export default{
-        data(){
-            return {
-                active: false
-            }
-        },
+        props: ["active"],
         watch: {
             'active' (newValue) {
-                this.$emit('darkModeToggle', this.active)
+                this.$emit('changeValue', this.active)
             }
         }
     }
@@ -64,5 +60,4 @@
         .switch__button__ball
             margin-left: 2.3rem
             transition: 0.2s
-
 </style>
