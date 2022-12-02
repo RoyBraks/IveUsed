@@ -37,13 +37,13 @@
     </main>
   </template>
   
-  <script>
-      export default {
-      
-      }
-  </script>
+<script>
+    export default {
+    
+    }
+</script>
   
-<style lang="sass" scoped>
+<style lang="sass">
 .account_gegevens
     display: flex
     position: relative
@@ -136,4 +136,24 @@
 
     .text
         color: $color-white
+
+        .dark-mode
+    .account_gegevens
+        background-color: $color-dark-grey
+
+    h1
+        color: $color-white
+    
+    h2
+        color: $color-text-grey
+
+    input
+        background-color: $color-moderate-dark-grey
+        color: $color-white
+
+    .app_instellingen
+        background-color: $color-dark-grey
+
+        .text
+            color: $color-white
 </style>

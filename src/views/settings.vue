@@ -49,7 +49,7 @@ export default {
 }
 </script>
   
-<style lang="sass" scoped>
+<style lang="sass">
 .settings
     &__accountlink
         background-color: $color-white-secondary

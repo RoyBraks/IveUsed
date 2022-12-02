@@ -1,12 +1,16 @@
 <template>
    <div class="indicator" v-if="hoursBeforeSober != 0 || minutesBeforeSober != 0">
         <div class="indicator__inner">
-            <span class="indicator__label">Je kunt weer rijden in</span>
+            <span class="indicator__label" @click="sendNotification">Je kunt weer rijden in</span>
             <div class="indicator__time">
                 <span class="indicator__hours">{{ hoursBeforeSober }} uur &amp;</span>
                 <span class="indicator__minutes">{{ minutesBeforeSober }} minuten</span>
             </div>
         </div>
+    </div>
+
+    <div class="indicator__warning box" v-show="hoursBeforeSober >= 6">
+        If you were to get caught you are likely to lose your driver's license!
     </div>
 </template>
 
@@ -21,6 +25,15 @@ export default {
         }
     },
     methods: {
+        sendNotification () {
+            Notification.requestPermission().then(perm => {
+                if (perm === "granted") {
+                    new Notification("Notifications are granted", {
+                        body: "This is what an notification looks like!"
+                    });
+                }
+            })
+        },
         calculateSubstanceEndingTimes (substances) {
             let usedSubstances = [];
 
@@ -139,6 +152,12 @@ export default {
             // Set the calculated time as Vue variables in the templates
             this.hoursBeforeSober = hoursBoforeSober;
             this.minutesBeforeSober = minutesBeforeSober;
+            
+            if (minutesBeforeSober > 0) setTimeout(function () {
+                new Notification("You may legally drive again", {
+                    body: "You are able to drive again safely"
+                });
+            }, (hoursBoforeSober * 60 + minutesBeforeSober) * 60 * 1000);
         }
     },
     created () {
@@ -191,4 +210,11 @@ export default {
     &__minutes
         font-weight: 600
         font-size: 2rem 
+
+    &__warning
+        line-height: 1.7
+        font-weight: 500
+        margin-top: 2rem
+        color: $color-warning
+        background-color: rgba($color-warning, .25)
 </style>

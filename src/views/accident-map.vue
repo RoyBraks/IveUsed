@@ -1,21 +1,3 @@
-<script>
-  import Map from "@/components/map.vue"
-  import Popup from "@/components/popup.vue"
-  
-  export default {
-    data () {
-      return {
-          manual: true,
-          popup: false
-      }
-    },
-    components: {
-      Map,
-      Popup
-    }
-  }
-</script>
-
 <template>
   <main class="map__wrapper">
     <Map />
@@ -45,19 +27,38 @@
 
     <Popup :active="popup" @close="popup = false;">
       <div class="popup--inner">
-          <h2 class="h3"></h2> <!-- {{ activePopup.title }} -->
+          <h2 class="h3">{{ activePopup.title }}</h2>
 
           <div class="map__labels">
-              <a class="map__label" href="#" ></a> <!-- v-for="(label, index) in activePopup.labels" :key="index" {{label}} -->
+              <a class="map__label" href="#" v-for="(label, index) in activePopup.labels" :key="index">{{label}}</a>
           </div>
 
-          <img class="map__image" alt=""> <!-- :src="activePopup.image"  -->
+          <img class="map__image" alt="" :src="activePopup.image">
 
-          <p class="map__paragraph"></p> <!-- {{ activePopup.paragraph }} -->
+          <p class="map__paragraph">{{ activePopup.paragraph }}</p>
       </div>
     </Popup>
   </main>
 </template>
+
+<script>
+  import Map from "@/components/map.vue"
+  import Popup from "@/components/popup.vue"
+  
+  export default {
+    data () {
+      return {
+          manual: true,
+          popup: false,
+          activePopup: {}
+      }
+    },
+    components: {
+      Map,
+      Popup
+    }
+  }
+</script>
 
 <style lang="sass" scoped>
 .map
@@ -92,4 +93,30 @@
 
       &:not(:last-child)
             margin-bottom: 2rem
+
+  &__label
+      font-size: 1.4rem
+      color: $color-white
+      padding: .8rem 1.5rem
+      background-color: $color-primary
+      border-radius: calc($border-radius / 2)
+
+      &:not(:last-child)
+          margin-right: 1rem
+
+      &s
+          display: flex
+
+  &__image
+      width: 100%
+      display: block
+      margin-top: 1.5rem
+      border-radius: calc($border-radius / 2)
+
+  &__paragraph
+      font-weight: 400
+      font-size: 1.5rem
+      line-height: 1.55
+      color: $color-grey
+      margin-top: 1.75rem
 </style>

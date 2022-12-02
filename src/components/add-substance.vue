@@ -76,7 +76,7 @@ export default {
             };
             
             // Get used substances from database
-            axios.post("http://127.0.0.1:3000/add-substance/", data).then(this.popup = false).catch((error) => {
+            axios.post("http://127.0.0.1:3000/add-substance/", data).then(location.reload()).catch((error) => {
                 console.error(error);
             });
         }
